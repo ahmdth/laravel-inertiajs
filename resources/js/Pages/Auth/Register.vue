@@ -1,7 +1,7 @@
 <template>
-  <Head title="Create User"/>
-  <h2 class="text-3xl font-bold text-gray-700">Edit user</h2>
-  <form @submit.prevent="submit" class="max-w-md mx-auto space-y-6">
+  <Head title="Register"/>
+  <h2 class="text-3xl font-bold text-gray-700 text-center mt-16">Register</h2>
+  <form @submit.prevent="submit" class="max-w-md mx-auto space-y-6" enctype="multipart/form-data">
     <div>
       <VLabel value="Name" for="name"/>
       <VInput type="text" v-model="form.name" autofocus/>
@@ -23,36 +23,35 @@
       <VError :message="errors.password_confirmation"/>
     </div>
     <div>
-      <VButton :processing="processing">Update</VButton>
+      <VButton :processing="processing">Register</VButton>
     </div>
   </form>
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import VLabel from "@/Components/Form/VLabel";
-import VInput from "@/Components/Form/VInput";
+import {useForm} from "@inertiajs/inertia-vue3";
+import {ref} from "vue";
 import VError from "@/Components/Form/VError";
+import VInput from "@/Components/Form/VInput";
+import VLabel from "@/Components/Form/VLabel";
 import VButton from "@/Components/Form/VButton";
 
-let props = defineProps({
-  errors: Object,
-  user: Object
+defineProps({
+  errors: Object
 })
 
 let form = useForm({
-  name: props.user.name,
-  email: props.user.email,
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: ""
 })
+let processing = ref(false)
 
-let processing = ref(false);
 let submit = () => {
-  form.put(`/users/${props.user.id}`, {
-    preserveScroll: true,
-    onSuccess: () => alert("user updated successfully"),
-    onStart: () => processing.value = true,
-    onFinish: () => processing.value = false
+  form.post("/register", {
+    onStart: () => processing = true,
+    onFinish: () => processing = false,
   })
 }
 </script>

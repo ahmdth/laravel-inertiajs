@@ -5,23 +5,17 @@
         <NavLink href="/" :active="$page.component === 'Home'">Home</NavLink>
       </li>
       <li>
-        <Link
-          href="/users"
-          class="text-blue-500 hover:underline"
-          :class="{'font-bold underline': $page.url.startsWith('/users') }"
-        >Users
-        </Link>
+        <NavLink href="/users" :active="$page.component === 'User/Index'">Users</NavLink>
       </li>
       <li>
-        <Link
-          href="/settings"
-          class="text-blue-500 hover:underline"
-          :class="{'font-bold underline': $page.component === 'Settings' }"
-        >Settings
-        </Link>
+        <NavLink href="/login" :active="$page.component === 'Auth/Login'">Login</NavLink>
       </li>
       <li>
-        <Link href="/logout" method="post" as="button" class="text-blue-500 hover:underline">
+        <NavLink href="/register" :active="$page.component === 'Auth/Register'">Register</NavLink>
+      </li>
+      <li>
+        <Link href="/logout" method="post" as="button"
+              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">
           Logout
         </Link>
       </li>

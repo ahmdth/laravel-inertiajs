@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -19,12 +19,14 @@ class UserController extends Controller
         })
         ->paginate(10)
         ->withQueryString()
-        ->through(fn($user) => [
-          'id' => $user->id,
-          'name' => $user->name,
-          'email' => $user->email,
-          'avatar' => isset($user->avatar) ? asset("avatars/$user->avatar") : asset("avatars/avatar.jpg"),
-        ]),
+        ->through(function ($user) {
+          return [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => isset($user->avatar) ? asset("avatars/$user->avatar") : asset("avatars/avatar.jpg"),
+          ];
+        }),
 
       'filters' => Request::only(['search']),
     ]);
@@ -72,18 +74,12 @@ class UserController extends Controller
 
   public function edit(User $user)
   {
-    return Inertia::render("Users/Edit", [
-      'user' => [
-        'id' => $user->id,
-        'name' => $user->name,
-        'email' => $user->email,
-      ]
-    ]);
+    return Inertia::render("Users/Edit", ['user' => $user]);
   }
 
   public function update(Request $request, User $user)
   {
-    $data = $request->validate([
+    $data = Validator::make($request, [
       'name' => ['required', 'max:90'],
       'email' => ['required', 'email'],
     ]);
@@ -95,6 +91,6 @@ class UserController extends Controller
   {
     $user = User::find($id);
     $user->deleteOrFail();
-    return Redirect::route("users.index");
+    return redirect()->route("users.index");
   }
 }

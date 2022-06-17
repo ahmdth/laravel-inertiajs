@@ -74,18 +74,21 @@ import {ref, watch} from 'vue'
 import {Inertia} from '@inertiajs/inertia'
 import debounce from "lodash/debounce"
 import {PencilAltIcon, TrashIcon, EyeIcon} from "@heroicons/vue/outline"
+import Model from "@/Components/Model";
 
 let props = defineProps({
   users: Object,
   filters: Object
 })
 
-let destroy = id => Inertia.delete(`/users/${id}`)
+let destroy = id => {
+  if (confirm('Are you sure?')) {
+    Inertia.delete(`/users/${id}`)
+  }
+}
 
 let search = ref(props.filters.search)
-
 watch(search, debounce(function (value) {
-  console.log("trigger")
   Inertia.get('/users', {search: value}, {
     preserveState: true,
     replace: true
