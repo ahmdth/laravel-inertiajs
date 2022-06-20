@@ -21,9 +21,9 @@ class LoginController extends Controller
       'password' => ['required'],
     ]);
 
-    if (Auth::attempt($credentials)) {
+    if (Auth::attempt($credentials, request('remember'))) {
       $request->session()->regenerate();
-      return redirect()->intended('dashboard')->with(['success' => 'welcome back ' + Auth::user()->name]);
+      return redirect()->intended('/users')->with(['success' => 'welcome back ' . Auth::user()->name]);
     }
 
     return back()->withErrors([

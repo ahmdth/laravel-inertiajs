@@ -7,11 +7,15 @@
   >
 </template>
 
-<script>
-import {defineComponent} from 'vue'
-
-export default defineComponent({
-  props: ['modelValue', 'type'],
-  emits: ['update:modelValue'],
+<script setup>
+defineProps({
+  modelValue: {
+    default: ''
+  },
+  type: {
+    type: String
+  }
 })
+defineEmits(['update:modelValue'])
+
 </script>

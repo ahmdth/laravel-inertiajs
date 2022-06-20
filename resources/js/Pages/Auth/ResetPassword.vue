@@ -1,10 +1,10 @@
 <template>
   <Head title="Register"/>
-  <h2 class="text-3xl font-bold text-gray-700 text-center mt-16">Login</h2>
-  <form @submit.prevent="submit" class="max-w-md mx-auto space-y-4" enctype="multipart/form-data">
+  <h2 class="text-3xl font-bold text-gray-700 text-center my-10">Reset Password</h2>
+  <form @submit.prevent="submit" class="max-w-md mx-auto space-y-6">
     <div>
       <VLabel value="Email" for="email"/>
-      <VInput id="email" type="email" v-model="form.email" autocomplete="email" autofocus/>
+      <VInput id="email" type="email" v-model="email" autocomplete="email"/>
       <VError :message="errors.email"/>
     </div>
     <div>
@@ -12,15 +12,13 @@
       <VInput id="password" type="password" v-model="form.password"/>
       <VError :message="errors.password"/>
     </div>
-    <div class="flex justify-between">
-      <div class="flex items-center">
-        <VCheck id="remember" v-model:checked="form.remember"/>
-        <VLabel value="Remember Me" for="remember" class="inline-flex"/>
-      </div>
-      <Link href="/forgot-password" class="text-sm text-blue-500 hover:text-blue-700 hover:underline">Forgot password?</Link>
+    <div>
+      <VLabel value="Password Confirmation" for="password_confirmation"/>
+      <VInput id="password_confirmation" type="password" v-model="form.password_confirmation"/>
+      <VError :message="errors.password_confirmation"/>
     </div>
     <div>
-      <VButton :processing="processing">Login</VButton>
+      <VButton :processing="processing">Register</VButton>
     </div>
   </form>
 </template>
@@ -34,18 +32,21 @@ import VLabel from "@/Components/Form/VLabel";
 import VButton from "@/Components/Form/VButton";
 
 let props = defineProps({
+  email: String,
+  token: String,
   errors: Object
 })
 
 let form = useForm({
-  email: "",
+  email: props.email,
   password: "",
-  remember: ""
+  password_confirmation: "",
+  token: props.token
 })
 let processing = ref(false)
 
 let submit = () => {
-  form.post("/login", {
+  form.post("/reset-password", {
     onStart: () => processing = true,
     onFinish: () => processing = false,
   })
