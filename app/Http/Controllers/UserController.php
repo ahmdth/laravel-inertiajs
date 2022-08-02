@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +14,7 @@ class UserController extends Controller
   {
     return Inertia::render('Users/Index', [
       'users' => User::query()
-        ->when(Request::input('search'), function ($query, $search) {
+        ->when(request()->input('search'), function ($query, $search) {
           $query->where('name', 'like', "%{$search}%");
         })
         ->paginate(10)
@@ -28,7 +28,7 @@ class UserController extends Controller
           ];
         }),
 
-      'filters' => Request::only(['search']),
+      'filters' => request()->only(['search']),
     ]);
   }
 
@@ -41,21 +41,15 @@ class UserController extends Controller
   {
     // vvalidate request
     $attributes = $request->validate([
-      'name' => 'required',
-      'email' => ['required', 'email'],
-      'password' => 'required',
+      'name' => ['required'],
+      'email' => ['required', 'email', 'unique:users'],
+      'password' => ['required'],
       'avatar' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
     ]);
     // upload avatart image
     $filename = time() . "." . $request->avatar->getClientOriginalExtension();
     $request->avatar->move("avatars", $filename);
-//    $path = storage_path('app/avatars') . $filename;
-//
-//    Storage::disk('local')->put(
-//      'avatars/' . $filename,
-//      $filename
-//    );
-    // save user in database
+
     User::create([
       "name" => $request->name,
       "email" => $request->email,
@@ -79,17 +73,18 @@ class UserController extends Controller
 
   public function update(Request $request, User $user)
   {
-    $data = Validator::make($request, [
+    $data = $request->validate([
       'name' => ['required', 'max:90'],
       'email' => ['required', 'email'],
     ]);
+    $data['password'] = $user->password;
     $user->update($data);
     return Redirect::route('users.index');
   }
 
   public function destroy($id)
   {
-    $user = User::find($id);
+    $user = User::findOrFail($id);
     $user->deleteOrFail();
     return redirect()->route("users.index");
   }

@@ -1,7 +1,7 @@
 <template>
   <Head title="Create User"/>
   <h2 class="text-3xl font-bold text-gray-700">Create New user</h2>
-  <form @submit.prevent="submit" class="max-w-md mx-auto" enctype="multipart/form-data">
+  <form @submit.prevent="submit" class="max-w-md mx-auto mt-8" enctype="multipart/form-data">
     <div class="mt-6">
       <label for="name" class="block mb-2 text-sm">Name</label>
       <input

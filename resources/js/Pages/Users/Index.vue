@@ -45,10 +45,10 @@
               </td>
               <td
                 class="flex items-center h-full px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end space-x-3">
-                <Link :href="`/users/${user.id}/edit`" class="text-indigo-600 hover:text-indigo-900">
+                <Link :href="route('users.edit', user.id)" class="text-indigo-600 hover:text-indigo-900">
                   <PencilAltIcon class="h-5 w-5 text-blue-500"/>
                 </Link>
-                <Link :href="`/users/${user.id}`" class="text-indigo-600 hover:text-indigo-900">
+                <Link :href="route('users.show', user.id)" class="text-indigo-600 hover:text-indigo-900">
                   <EyeIcon class="h-5 w-5 text-green-500"/>
                 </Link>
                 <button @click="destroy(user.id)" class="text-indigo-600 hover:text-indigo-900">
@@ -69,12 +69,11 @@
 
 </template>
 <script setup>
-import Pagination from "../../Shared/Pagination";
+import Pagination from "@/Shared/Pagination";
 import {ref, watch} from 'vue'
 import {Inertia} from '@inertiajs/inertia'
 import debounce from "lodash/debounce"
 import {PencilAltIcon, TrashIcon, EyeIcon} from "@heroicons/vue/outline"
-import Model from "@/Components/Model";
 
 let props = defineProps({
   users: Object,

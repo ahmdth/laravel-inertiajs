@@ -1,7 +1,7 @@
 <template>
   <Head title="Create User"/>
   <h2 class="text-3xl font-bold text-gray-700">Edit user</h2>
-  <form @submit.prevent="submit" class="max-w-md mx-auto space-y-6">
+  <form @submit.prevent="submit" class="max-w-md mx-auto space-y-6 mt-8">
     <div>
       <VLabel value="Name" for="name"/>
       <VInput type="text" v-model="form.name" autofocus/>

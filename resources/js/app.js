@@ -2,7 +2,7 @@ import {createApp, h} from "vue";
 import {createInertiaApp, Link, Head} from "@inertiajs/inertia-vue3";
 import {InertiaProgress} from "@inertiajs/progress";
 import Layout from "@/Shared/Layout";
-
+import route from 'ziggy-js'
 const appName = document.getElementsByTagName("title")[0]?.innerText || "Laravel"
 
 createInertiaApp({
@@ -16,7 +16,7 @@ createInertiaApp({
   setup({el, App, props, plugin}) {
     createApp({render: () => h(App, props)})
       .use(plugin)
-      // .mixin({methods: {route}})
+      .mixin({methods: {route}})
       .component("Link", Link)
       .component("Head", Head)
       .mount(el);

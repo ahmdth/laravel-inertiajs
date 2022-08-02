@@ -2,10 +2,10 @@
   <nav>
     <ul class="flex space-x-6">
       <li>
-        <NavLink href="/" :active="$page.component === 'Home'">Home</NavLink>
+        <NavLink :href="route('home')" :active="$page.component === 'Home'">Home</NavLink>
       </li>
       <li>
-        <NavLink href="/users" :active="$page.component === 'User/Index'">Users</NavLink>
+        <NavLink :href="route('users.index')" :active="$page.component === 'User/Index'">Users</NavLink>
       </li>
       <template v-if="!$page.props.user">
         <li>

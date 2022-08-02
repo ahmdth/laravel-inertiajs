@@ -6,6 +6,7 @@
   <title>Inertia.js</title>
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
+  @routes
   <script src="{{ mix('/js/app.js') }}" defer></script>
   @inertiaHead
 </head>
