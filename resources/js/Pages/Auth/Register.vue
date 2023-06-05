@@ -29,12 +29,12 @@
 </template>
 
 <script setup>
-import {useForm} from "@inertiajs/inertia-vue3";
+import {useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
-import VError from "@/Components/Form/VError";
-import VInput from "@/Components/Form/VInput";
-import VLabel from "@/Components/Form/VLabel";
-import VButton from "@/Components/Form/VButton";
+import VError from "@/Components/Form/VError.vue";
+import VInput from "@/Components/Form/VInput.vue";
+import VLabel from "@/Components/Form/VLabel.vue";
+import VButton from "@/Components/Form/VButton.vue";
 
 defineProps({
   errors: Object

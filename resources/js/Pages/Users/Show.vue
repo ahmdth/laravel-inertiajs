@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import {Head} from "@inertiajs/inertia-vue3"
+import {Head} from "@inertiajs/vue3"
 let props = defineProps({
   user: Array
 })

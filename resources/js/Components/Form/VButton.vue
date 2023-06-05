@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import LoadingIcon from "@/Components/LoadingIcon";
+import LoadingIcon from "@/Components/LoadingIcon.vue";
 
 defineProps({
   type: {

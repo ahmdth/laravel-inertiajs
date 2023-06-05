@@ -65,8 +65,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useForm } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
+import {router, useForm} from '@inertiajs/vue3'
 
 defineProps({
   errors: Object
@@ -84,7 +83,7 @@ let submit = () => {
   //   forceFormData: true,
   // })
   processing.value = true;
-  Inertia.post('/users', form, {
+  router.post('/users', form, {
     forceFormData: true,
     onStart: () => {
       processing.value = true;

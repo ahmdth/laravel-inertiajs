@@ -30,11 +30,11 @@
 
 <script setup>
 import {ref} from 'vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import VLabel from "@/Components/Form/VLabel";
-import VInput from "@/Components/Form/VInput";
-import VError from "@/Components/Form/VError";
-import VButton from "@/Components/Form/VButton";
+import {useForm} from '@inertiajs/vue3'
+import VLabel from "@/Components/Form/VLabel.vue";
+import VInput from "@/Components/Form/VInput.vue";
+import VError from "@/Components/Form/VError.vue";
+import VButton from "@/Components/Form/VButton.vue";
 
 let props = defineProps({
   errors: Object,

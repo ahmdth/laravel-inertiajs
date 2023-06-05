@@ -69,11 +69,11 @@
 
 </template>
 <script setup>
-import Pagination from "@/Shared/Pagination";
+import Pagination from "@/Shared/Pagination.vue";
 import {ref, watch} from 'vue'
-import {Inertia} from '@inertiajs/inertia'
 import debounce from "lodash/debounce"
 import {PencilAltIcon, TrashIcon, EyeIcon} from "@heroicons/vue/outline"
+import {router} from "@inertiajs/vue3";
 
 let props = defineProps({
   users: Object,
@@ -82,13 +82,13 @@ let props = defineProps({
 
 let destroy = id => {
   if (confirm('Are you sure?')) {
-    Inertia.delete(`/users/${id}`)
+    router.delete(`/users/${id}`)
   }
 }
 
 let search = ref(props.filters.search)
 watch(search, debounce(function (value) {
-  Inertia.get('/users', {search: value}, {
+  router.get('/users', {search: value}, {
     preserveState: true,
     replace: true
   })
